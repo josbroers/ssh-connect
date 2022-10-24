@@ -1,0 +1,16 @@
+{
+	"version": "0.0.0",
+	"npmClient": "npm",
+	"useWorkspaces": false,
+	"packages": [
+		"."
+	],
+	"command": {
+		"version": {
+			"exact": true,
+			"preid": "canary"
+		}
+	}
+}
+
+

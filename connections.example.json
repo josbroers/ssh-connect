@@ -1,0 +1,12 @@
+{
+	"server_name_1": {
+		"ip": "0.0.0.0",
+		"user": "root",
+		"port": 22
+	},
+	"server_name_2": {
+		"ip": "1.1.1.1.",
+		"user": "root",
+		"port": 22
+	}
+}

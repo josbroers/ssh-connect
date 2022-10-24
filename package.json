@@ -1,0 +1,27 @@
+{
+	"name": "ssh-connect",
+	"version": "0.0.0",
+	"private": true,
+	"license": "MIT",
+	"type": "module",
+	"author": "Jos Broers <jos@jobrodo.nl>",
+	"main": "index.js",
+	"engines": {
+		"node": ">= 16"
+	},
+	"volta": {
+		"node": "16.18.0",
+		"npm": "8.19.2"
+	},
+	"scripts": {
+		"connect": "node index.js",
+		"lerna": "npx lerna version --force-publish"
+	},
+	"devDependencies": {
+		"@types/inquirer": "^9.0.2",
+		"@types/node": "^18.11.4",
+		"chalk": "^5.1.2",
+		"inquirer": "^9.1.4",
+		"lerna": "^6.0.1"
+	}
+}
