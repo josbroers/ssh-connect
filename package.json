@@ -14,14 +14,14 @@
 		"npm": "8.19.2"
 	},
 	"scripts": {
-		"connect": "node index.js",
+		"connect": "node index.js connect connections.json",
+		"add": "node index.js add connections.json",
 		"lerna": "npx lerna version --force-publish"
 	},
 	"devDependencies": {
 		"@types/inquirer": "^9.0.2",
 		"@types/node": "^18.11.4",
 		"chalk": "^5.1.2",
-		"inquirer": "^9.1.4",
-		"lerna": "^6.0.1"
+		"inquirer": "^9.1.4"
 	}
 }

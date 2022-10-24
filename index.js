@@ -1,36 +1,64 @@
 #!/usr/bin/env node
 
-import chalk        from 'chalk'
-import inquirer     from 'inquirer';
-import connections  from './connections.json' assert { type: 'json' };
-import { execSync } from "child_process";
+import chalk            from "chalk";
+import { connect }      from "./connect.js";
+import { add }          from "./add.js";
+import { readFileSync } from "fs";
+import inquirer         from "inquirer";
+import { resolve }      from 'path'
 
-inquirer
-	.prompt( [
-		{
-			type:     'list',
-			name:     "server",
-			message:  "Choose a server to connect to:",
-			choices:  Object.keys( connections ).sort(),
-			loop:     false,
-			pageSize: 20
-		}
-	] )
-	.then( function ( answers ) {
-		if ( !connections[ answers.server ] || !connections[ answers.server ].ip ) {
-			throw new Error( `The server ${answers.server} isn't configured properly.` )
-		}
+async function cli() {
+	const questions = []
 
-		const server = connections[ answers.server ]
-		const ip     = server.ip
-		const user   = server.user ? `${server.user}@` : ''
-		const port   = server.port ? `-p ${server.port}` : ''
+	if ( !process.argv.slice( 2 )[ 0 ] ) {
+		questions.push( {
+			type:    'list',
+			name:    'type',
+			message: 'Choose a function',
+			choices: [ 'connect', 'add' ],
+			default: 'connect'
+		} )
+	}
 
-		execSync( `ssh ${user}${ip} ${port}`, { stdio: 'inherit' } )
-		process.exit( 1 )
+	if ( !process.argv.slice( 2 )[ 1 ] ) {
+		questions.push( {
+			type:    'input',
+			name:    "path",
+			message: 'Fill in the relative path to the connections',
+			default: 'ssh-connect/connections.json'
+		} )
+	}
+
+	return questions
+}
+
+cli()
+	.then( async function ( questions ) {
+		await inquirer
+			.prompt( questions )
+			.then( async function ( { type, path } ) {
+				const resolvedPath = resolve( process.cwd(), path ?? process.argv.slice( 2 )[ 1 ] )
+
+				return {
+					type:        type ?? process.argv.slice( 2 )[ 0 ],
+					path:        resolvedPath,
+					connections: await JSON.parse( readFileSync( resolvedPath, 'utf8' ) )
+				};
+			} )
+			.then( function ( { type, path, connections } ) {
+				switch ( type ) {
+					case 'connect':
+						connect( connections )
+						break;
+					case 'add':
+						add( connections, path )
+						break;
+					default:
+						throw new Error( 'Please pass one of the following options: connect or add' )
+				}
+			} )
 	} )
 	.catch( function ( e ) {
 		console.error( chalk.red.bold( e ) )
 		process.exit( 1 )
-	} );
-
+	} )
