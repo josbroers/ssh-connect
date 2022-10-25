@@ -5,7 +5,11 @@
 	"license": "MIT",
 	"type": "module",
 	"author": "Jos Broers <jos@jobrodo.nl>",
-	"main": "index.js",
+	"source": "src/index.ts",
+	"main": "dist/index.js",
+	"files": [
+		"dist"
+	],
 	"engines": {
 		"node": ">= 16"
 	},
@@ -14,14 +18,21 @@
 		"npm": "8.19.2"
 	},
 	"scripts": {
-		"connect": "node index.js connect connections.json",
-		"add": "node index.js add connections.json",
-		"remove": "node index.js remove connections.json",
+		"watch": "parcel watch",
+		"build": "parcel build",
+		"connect": "node dist/index.js connect connections.json",
+		"add": "node dist/index.js add connections.json",
+		"remove": "node dist/index.js remove connections.json",
 		"lerna": "npx lerna version --force-publish"
 	},
 	"devDependencies": {
+		"@parcel/transformer-typescript-types": "^2.7.0",
 		"@types/inquirer": "^9.0.2",
 		"@types/node": "^18.11.4",
+		"parcel": "^2.7.0",
+		"typescript": "^4.8.4"
+	},
+	"peerDependencies": {
 		"chalk": "^5.1.2",
 		"inquirer": "^9.1.4"
 	}
