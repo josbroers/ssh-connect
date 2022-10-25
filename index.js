@@ -48,16 +48,11 @@ cli()
 				};
 			} )
 			.then( function ( { type, path, connections } ) {
-				const servers = Object.keys( connections )
-				const options = [];
+				const options = Object.keys( connections )
 
-				if ( servers.length === 0 ) {
+				if ( options.length === 0 ) {
 					console.log( 'No servers defined. Please configure a server...' )
 					type = 'add';
-				} else {
-					servers.forEach( function ( value ) {
-						options.push( `${value} (${connections[ value ].ip})` )
-					} )
 				}
 
 				switch ( type ) {
