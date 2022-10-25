@@ -1,6 +1,6 @@
 import {resolve} from "path";
 import {chooseType, fillConnectionsPath} from "./questions";
-import renderErrorMessage from "./error";
+import {renderErrorMessage} from "./utils";
 
 const prepareScript = async (inquirer: any) => {
 	const questions = []

@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
 import prepareScript from "../lib/prepareScript";
-import importFile from "../lib/importFile";
 import inquirer from "inquirer";
 import searchList from "inquirer-search-list"
 import connect from "./connect";
 import add from "./add";
 import remove from "./remove";
 import {configureServer, passType} from "../lib/messages";
-import renderErrorMessage from "../lib/error";
+import {importFile, renderErrorMessage, renderInfoMessage} from "../lib/utils";
 
 const main = async () => {
 	inquirer.registerPrompt("search-list", searchList)
@@ -18,7 +17,7 @@ const main = async () => {
 	const options = Object.keys(connections)
 
 	if (options.length === 0) {
-		console.log(configureServer)
+		renderInfoMessage(configureServer)
 		args.type = 'add';
 	}
 

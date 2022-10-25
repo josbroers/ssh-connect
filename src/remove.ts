@@ -1,7 +1,7 @@
 import {writeFileSync} from "fs";
 import {chooseServer} from "../lib/questions";
 import {missingServer} from "../lib/messages";
-import renderErrorMessage from "../lib/error";
+import {renderDoneMessage, renderErrorMessage} from "../lib/utils";
 
 const remove = (inquirer, connections: object, servers: string[], path: string) => {
 	inquirer
@@ -13,6 +13,7 @@ const remove = (inquirer, connections: object, servers: string[], path: string) 
 
 			delete connections[answers.server];
 			writeFileSync(path, JSON.stringify(connections, null, 2));
+			renderDoneMessage(`Removed connection with the name ${answers.server}`)
 			process.exit(1)
 		})
 		.catch(({message}) => renderErrorMessage(message))

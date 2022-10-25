@@ -1,7 +1,7 @@
 import {execSync} from "child_process";
 import {chooseServer} from "../lib/questions";
 import {misconfiguredServer} from "../lib/messages";
-import renderErrorMessage from "../lib/error";
+import {renderErrorMessage} from "../lib/utils";
 
 const connect = (inquirer: any, connections: object, servers: string[]) => {
 	inquirer
