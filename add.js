@@ -1,15 +1,15 @@
 #!/usr/bin/env node
 
-import inquirer          from 'inquirer';
 import { writeFileSync } from "fs";
 import { execSync }      from "child_process";
 
 /**
  * Add a new server to `connections.json`
+ * @param inquirer
  * @param connections
  * @param path
  */
-export function add( connections, path ) {
+export function add( inquirer, connections, path ) {
 	inquirer
 		.prompt( [
 			{

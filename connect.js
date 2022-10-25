@@ -1,18 +1,18 @@
 #!/usr/bin/env node
 
-import inquirer     from 'inquirer';
 import { execSync } from "child_process";
 
 /**
  * Connect to a server listed in `connections.json`
+ * @param inquirer
  * @param connections
  * @param servers
  */
-export function connect( connections, servers ) {
+export function connect( inquirer, connections, servers ) {
 	inquirer
 		.prompt( [
 			{
-				type:     'list',
+				type:     'search-list',
 				name:     "server",
 				message:  "Choose a server to connect to:",
 				choices:  servers,

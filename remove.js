@@ -1,19 +1,19 @@
 #!/usr/bin/env node
 
-import inquirer          from 'inquirer';
 import { writeFileSync } from "fs";
 
 /**
  * Remove a server from `connections.json`
+ * @param inquirer
  * @param connections
  * @param servers
  * @param path
  */
-export function remove( connections, servers, path ) {
+export function remove( inquirer, connections, servers, path ) {
 	inquirer
 		.prompt( [
 			{
-				type:     'list',
+				type:     'search-list',
 				name:     "server",
 				message:  "Choose a server to remove:",
 				choices:  servers,
