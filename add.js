@@ -2,9 +2,12 @@
 
 import inquirer          from 'inquirer';
 import { writeFileSync } from "fs";
+import { execSync }      from "child_process";
 
 /**
  * Add a new server to `connections.json`
+ * @param connections
+ * @param path
  */
 export function add( connections, path ) {
 	inquirer
@@ -28,6 +31,12 @@ export function add( connections, path ) {
 				type:    'string',
 				name:    "port",
 				message: "Optional: What is the port?",
+			},
+			{
+				type:    'confirm',
+				name:    "connect",
+				message: "Connect to the server after creation?",
+				default: true,
 			}
 		] )
 		.then( function ( answers ) {
@@ -43,6 +52,15 @@ export function add( connections, path ) {
 			}
 
 			writeFileSync( path, JSON.stringify( servers, null, 2 ) );
+
+			if ( answers.connect ) {
+				const ip   = answers.ip
+				const user = answers.user ? `${answers.user}@` : ''
+				const port = answers.port ? `-p ${answers.port}` : ''
+
+				execSync( `ssh ${user}${ip} ${port}`, { stdio: 'inherit' } )
+			}
+
 			process.exit( 1 )
 		} )
 }

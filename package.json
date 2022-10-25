@@ -16,6 +16,7 @@
 	"scripts": {
 		"connect": "node index.js connect connections.json",
 		"add": "node index.js add connections.json",
+		"remove": "node index.js remove connections.json",
 		"lerna": "npx lerna version --force-publish"
 	},
 	"devDependencies": {
