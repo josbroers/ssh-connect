@@ -1,12 +1,12 @@
 {
-	"name": "ssh-connect",
+	"name": "@josbroers/ssh-connect",
 	"version": "0.0.5-canary.0",
 	"private": true,
 	"license": "MIT",
 	"type": "module",
 	"author": "Jos Broers <jos@jobrodo.nl>",
-	"source": "src/index.ts",
-	"main": "dist/index.js",
+	"source": "src/main.ts",
+	"main": "dist/main.js",
 	"packageManager": "npm@8.19.2",
 	"description": "Easily connect and manage your SSH connections.",
 	"homepage": "https://github.com/josbroers/ssh-connect/",
@@ -37,9 +37,9 @@
 	"scripts": {
 		"watch": "parcel watch",
 		"build": "parcel build",
-		"connect": "node dist/index.js connect connections.json",
-		"add": "node dist/index.js add connections.json",
-		"remove": "node dist/index.js remove connections.json",
+		"connect": "node dist/main.js connect connections.json",
+		"add": "node dist/main.js add connections.json",
+		"remove": "node dist/main.js remove connections.json",
 		"lerna": "npx lerna version --force-publish",
 		"make_public": "json -I -f package.json -e 'this.private=false'"
 	},
