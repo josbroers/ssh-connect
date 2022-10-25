@@ -6,6 +6,7 @@ import { add }          from "./add.js";
 import { readFileSync } from "fs";
 import inquirer         from "inquirer";
 import { resolve }      from 'path'
+import { remove }       from "./remove.js";
 
 async function cli() {
 	const questions = []
@@ -15,7 +16,7 @@ async function cli() {
 			type:    'list',
 			name:    'type',
 			message: 'Choose a function',
-			choices: [ 'connect', 'add' ],
+			choices: [ 'connect', 'add', 'remove' ],
 			default: 'connect'
 		} )
 	}
@@ -38,20 +39,36 @@ cli()
 			.prompt( questions )
 			.then( async function ( { type, path } ) {
 				const resolvedPath = resolve( process.cwd(), path ?? process.argv.slice( 2 )[ 1 ] )
+				const readFile     = readFileSync( resolvedPath, 'utf8' )
 
 				return {
 					type:        type ?? process.argv.slice( 2 )[ 0 ],
 					path:        resolvedPath,
-					connections: await JSON.parse( readFileSync( resolvedPath, 'utf8' ) )
+					connections: await JSON.parse( readFile )
 				};
 			} )
 			.then( function ( { type, path, connections } ) {
+				const servers = Object.keys( connections )
+				const options = [];
+
+				if ( servers.length === 0 ) {
+					console.log( 'No servers defined. Please configure a server...' )
+					type = 'add';
+				} else {
+					servers.forEach( function ( value ) {
+						options.push( `${value} (${connections[ value ].ip})` )
+					} )
+				}
+
 				switch ( type ) {
 					case 'connect':
-						connect( connections )
+						connect( connections, options.sort() )
 						break;
 					case 'add':
 						add( connections, path )
+						break;
+					case 'remove':
+						remove( connections, options.sort(), path )
 						break;
 					default:
 						throw new Error( 'Please pass one of the following options: connect or add' )

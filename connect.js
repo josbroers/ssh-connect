@@ -5,15 +5,17 @@ import { execSync } from "child_process";
 
 /**
  * Connect to a server listed in `connections.json`
+ * @param connections
+ * @param servers
  */
-export function connect( connections ) {
+export function connect( connections, servers ) {
 	inquirer
 		.prompt( [
 			{
 				type:     'list',
 				name:     "server",
 				message:  "Choose a server to connect to:",
-				choices:  Object.keys( connections ).sort(),
+				choices:  servers,
 				loop:     false,
 				pageSize: 20
 			}
