@@ -7,6 +7,9 @@ import { readFileSync } from "fs";
 import inquirer         from "inquirer";
 import { resolve }      from 'path'
 import { remove }       from "./remove.js";
+import searchList       from "inquirer-search-list"
+
+inquirer.registerPrompt( "search-list", searchList )
 
 async function cli() {
 	const questions = []
@@ -57,13 +60,13 @@ cli()
 
 				switch ( type ) {
 					case 'connect':
-						connect( connections, options.sort() )
+						connect( inquirer, connections, options.sort() )
 						break;
 					case 'add':
-						add( connections, path )
+						add( inquirer, connections, path )
 						break;
 					case 'remove':
-						remove( connections, options.sort(), path )
+						remove( inquirer, connections, options.sort(), path )
 						break;
 					default:
 						throw new Error( 'Please pass one of the following options: connect or add' )
