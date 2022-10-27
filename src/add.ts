@@ -6,23 +6,27 @@ import {renderMessage} from "../lib/utils";
 
 const add = (inquirer: any, connections: object, options: string[], path: string) => {
 	inquirer
-		.prompt([fillServerName, fillIp, fillOptionalUser, fillOptionalPort, connectAfterCreation])
+		.prompt([fillServerName(), fillIp(), fillOptionalUser(), fillOptionalPort(), connectAfterCreation])
 		.then((answers) => {
 			if (!answers.server) throw new Error(passServerName)
 			if (!answers.ip) throw new Error(passIp)
 			if (options.includes(answers.server)) throw new Error(serverAlreadyExists(answers.server))
 
-			const servers = {
-				...connections,
+			const newServer = {
 				[answers.server]: {
 					"ip": answers.ip,
-					...[answers.user ?? undefined],
-					...[answers.port ?? undefined]
+					"user": answers.user,
+					"port": answers.port
 				}
 			}
 
+			const servers = {
+				...connections,
+				...newServer
+			}
+
 			writeFileSync(path, JSON.stringify(servers, null, 2));
-			renderMessage(`Added ${answers.server} as a new connection.`, 'done')
+			renderMessage(`Added the following connection:\n\n${JSON.stringify(newServer, null, 2)}`, 'success')
 
 			if (answers.connect) {
 				const ip = answers.ip

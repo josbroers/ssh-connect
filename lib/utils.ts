@@ -1,9 +1,19 @@
 import {readFileSync} from "fs";
 import chalk from "chalk";
+import {resolve} from "path";
 
-export const renderMessage = (message: string, type: 'error' | 'info' | 'warning' | 'done' = 'info', exit = false) => {
+export const availableTypes = [
+	'connect',
+	'add',
+	'remove',
+	'configure',
+	'list',
+	'edit'
+]
+
+export const renderMessage = (message: string, type: 'error' | 'info' | 'warning' | 'success' = 'info', exit = false) => {
 	switch (type) {
-		case "done":
+		case "success":
 			console.log(`%s: ${message}`, chalk.green.bold(type.toUpperCase()))
 			break
 		case "error":
@@ -23,5 +33,5 @@ export const renderMessage = (message: string, type: 'error' | 'info' | 'warning
 }
 
 export const importFile = async (path: string) => {
-	return await JSON.parse(readFileSync(path, 'utf8'))
+	return await JSON.parse(readFileSync(resolve(process.cwd(), path), 'utf8'))
 }
