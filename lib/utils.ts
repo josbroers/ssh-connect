@@ -1,18 +1,25 @@
 import {readFileSync} from "fs";
 import chalk from "chalk";
 
-export const renderErrorMessage = (message: string) => {
-	console.error(`%s: ${message}`, chalk.red.bold('ERROR'))
-	process.exit(1)
-}
+export const renderMessage = (message: string, type: 'error' | 'info' | 'warning' | 'done' = 'info', exit = false) => {
+	switch (type) {
+		case "done":
+			console.log(`%s: ${message}`, chalk.green.bold(type.toUpperCase()))
+			break
+		case "error":
+			console.error(`%s: ${message}`, chalk.red.bold(type.toUpperCase()))
+			break
+		case "warning":
+			console.warn(`%s: ${message}`, chalk.yellow.bold(type.toUpperCase()))
+			break
+		case "info":
+		default:
+			console.log(`%s: ${message}`, chalk.cyan.bold(type.toUpperCase()))
+	}
 
-export const renderDoneMessage = (message: string) => {
-	console.log(`%s: ${message}`, chalk.green.bold('DONE'))
-	process.exit(1)
-}
-
-export const renderInfoMessage = (message: string) => {
-	console.log(`%s: ${message}`, chalk.cyan.bold('INFO'))
+	if (exit) {
+		process.exit(1)
+	}
 }
 
 export const importFile = async (path: string) => {
