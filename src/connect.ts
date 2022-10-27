@@ -1,7 +1,7 @@
 import {execSync} from "child_process";
 import {chooseServer} from "../lib/questions";
 import {misconfiguredServer} from "../lib/messages";
-import {renderErrorMessage} from "../lib/utils";
+import {renderMessage} from "../lib/utils";
 
 const connect = (inquirer: any, connections: object, servers: string[]) => {
 	inquirer
@@ -19,7 +19,7 @@ const connect = (inquirer: any, connections: object, servers: string[]) => {
 			execSync(`ssh ${user}${ip} ${port}`, {stdio: 'inherit'})
 			process.exit(1)
 		})
-		.catch(({message}) => renderErrorMessage(message))
+		.catch(({message}) => renderMessage(message, 'error', true))
 }
 
 export default connect

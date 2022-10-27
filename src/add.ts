@@ -2,7 +2,7 @@ import {connectAfterCreation, fillIp, fillOptionalPort, fillOptionalUser, fillSe
 import {writeFileSync} from "fs";
 import {execSync} from "child_process";
 import {passIp, passServerName, serverAlreadyExists} from "../lib/messages";
-import {renderDoneMessage, renderErrorMessage} from "../lib/utils";
+import {renderMessage} from "../lib/utils";
 
 const add = (inquirer: any, connections: object, options: string[], path: string) => {
 	inquirer
@@ -22,7 +22,7 @@ const add = (inquirer: any, connections: object, options: string[], path: string
 			}
 
 			writeFileSync(path, JSON.stringify(servers, null, 2));
-			renderDoneMessage(`Added ${answers.server} as a new connection.`)
+			renderMessage(`Added ${answers.server} as a new connection.`, 'done')
 
 			if (answers.connect) {
 				const ip = answers.ip
@@ -34,7 +34,7 @@ const add = (inquirer: any, connections: object, options: string[], path: string
 
 			process.exit(1)
 		})
-		.catch(({message}) => renderErrorMessage(message))
+		.catch(({message}) => renderMessage(message, 'error', true))
 }
 
 export default add

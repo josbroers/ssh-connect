@@ -1,6 +1,6 @@
 import {resolve} from "path";
 import {chooseType, fillConnectionsPath} from "./questions";
-import {renderErrorMessage} from "./utils";
+import {renderMessage} from "./utils";
 
 const prepareScript = async (inquirer: any) => {
 	const questions = []
@@ -17,7 +17,7 @@ const prepareScript = async (inquirer: any) => {
 				type = answers.type
 				path = answers.path
 			})
-			.catch(({message}) => renderErrorMessage(message))
+			.catch(({message}) => renderMessage(message, 'error', true))
 	}
 
 	return {

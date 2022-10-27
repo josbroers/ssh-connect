@@ -7,7 +7,7 @@ import connect from "./connect";
 import add from "./add";
 import remove from "./remove";
 import {configureServer, passType} from "../lib/messages";
-import {importFile, renderErrorMessage, renderInfoMessage} from "../lib/utils";
+import {importFile, renderMessage} from "../lib/utils";
 
 const main = async () => {
 	inquirer.registerPrompt("search-list", searchList)
@@ -17,7 +17,7 @@ const main = async () => {
 	const options = Object.keys(connections)
 
 	if (options.length === 0) {
-		renderInfoMessage(configureServer)
+		renderMessage(configureServer)
 		args.type = 'add';
 	}
 
@@ -44,4 +44,4 @@ main()
 				throw new Error(passType)
 		}
 	})
-	.catch(({message}) => renderErrorMessage(message))
+	.catch(({message}) => renderMessage(message, 'error', true))
