@@ -30,7 +30,7 @@
 		"dist"
 	],
 	"bin": {
-		"ssh-connect": "node dist/main.js"
+		"ssh-connect": "dist/main.js"
 	},
 	"engines": {
 		"node": ">= 16"
