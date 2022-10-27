@@ -14,8 +14,10 @@
 		"url": "https://github.com/josbroers/ssh-connect/issues"
 	},
 	"keywords": [
-		"nextjs",
-		"skeleton"
+		"SSH",
+		"SCP",
+		"Server tools",
+		"Linux"
 	],
 	"repository": {
 		"url": "git+https://github.com/josbroers/ssh-connect.git",
@@ -27,6 +29,9 @@
 	"files": [
 		"dist"
 	],
+	"bin": {
+		"ssh-connect": "node dist/main.js"
+	},
 	"engines": {
 		"node": ">= 16"
 	},
