@@ -8,6 +8,8 @@ import add from "./add";
 import remove from "./remove";
 import {configureServer, passType} from "../lib/messages";
 import {importFile, renderMessage} from "../lib/utils";
+import list from "./list";
+import edit from "./edit";
 
 const main = async () => {
 	inquirer.registerPrompt("search-list", searchList)
@@ -39,6 +41,12 @@ main()
 				break;
 			case 'remove':
 				remove(inquirer, connections, options, args.path)
+				break;
+			case 'list':
+				list(connections)
+				break;
+			case 'edit':
+				edit(inquirer, connections, options, args.path)
 				break;
 			default:
 				throw new Error(passType)

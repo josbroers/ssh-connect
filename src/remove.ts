@@ -11,9 +11,10 @@ const remove = (inquirer, connections: object, servers: string[], path: string) 
 				throw new Error(missingServer(answers.server))
 			}
 
+			const oldConnection = connections[answers.server]
 			delete connections[answers.server];
 			writeFileSync(path, JSON.stringify(connections, null, 2));
-			renderMessage(`Removed connection with the name ${answers.server}`, 'done', true)
+			renderMessage(`Removed the following connection:\n\n${JSON.stringify(oldConnection, null, 2)}`, 'success', true)
 		})
 		.catch(({message}) => renderMessage(message, 'error', true))
 }

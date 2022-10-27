@@ -42,9 +42,7 @@
 	"scripts": {
 		"watch": "parcel watch",
 		"build": "parcel build",
-		"connect": "node dist/main.js connect connections.json",
-		"add": "node dist/main.js add connections.json",
-		"remove": "node dist/main.js remove connections.json",
+		"start": "node dist/main.js",
 		"lerna": "npx lerna version --force-publish",
 		"make_public": "json -I -f package.json -e 'this.private=false'"
 	},

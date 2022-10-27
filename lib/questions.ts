@@ -1,3 +1,6 @@
+import {availableTypes} from "./utils";
+import {homedir} from "os";
+
 export const chooseServer = (servers: string[]) => {
 	return {
 		type: 'search-list',
@@ -13,7 +16,7 @@ export const chooseType = {
 	type: 'list',
 	name: 'type',
 	message: 'Choose a function:',
-	choices: ['connect', 'add', 'remove'],
+	choices: availableTypes,
 	default: 'connect'
 }
 
@@ -21,31 +24,43 @@ export const fillConnectionsPath = {
 	type: 'input',
 	name: "path",
 	message: 'Fill in the relative path to the connections:',
-	default: 'ssh-connect/connections.json'
+	default: `${homedir()}/connections.json`
 }
 
-export const fillServerName = {
-	type: 'input',
-	name: "server",
-	message: "What is the name of the server?",
+export const fillServerName = (serverName: string = '') => {
+	return {
+		type: 'input',
+		name: "server",
+		message: "What is the name of the server?",
+		default: serverName,
+	}
 }
 
-export const fillIp = {
-	type: 'input',
-	name: "ip",
-	message: "What is the IP address?",
+export const fillIp = (serverName: string = '') => {
+	return {
+		type: 'input',
+		name: "ip",
+		message: "What is the IP address?",
+		default: serverName,
+	}
 }
 
-export const fillOptionalUser = {
-	type: 'string',
-	name: "user",
-	message: "Optional: Who is the user?",
+export const fillOptionalUser = (serverName: string = '') => {
+	return {
+		type: 'string',
+		name: "user",
+		message: "Optional: Who is the user?",
+		default: serverName,
+	}
 }
 
-export const fillOptionalPort = {
-	type: 'string',
-	name: "port",
-	message: "Optional: What is the port?",
+export const fillOptionalPort = (serverName: number | string = '') => {
+	return {
+		type: 'string',
+		name: "port",
+		message: "Optional: What is the port?",
+		default: serverName,
+	}
 }
 
 export const connectAfterCreation = {
@@ -53,4 +68,13 @@ export const connectAfterCreation = {
 	name: "connect",
 	message: "Connect to the server after creation?",
 	default: true,
+}
+
+export const configFilePath = (defaultPath: string) => {
+	return {
+		type: 'input',
+		name: "configFilePath",
+		message: "Define a path to store/read connections",
+		default: defaultPath,
+	}
 }

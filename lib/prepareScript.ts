@@ -1,20 +1,40 @@
 import {resolve} from "path";
-import {chooseType, fillConnectionsPath} from "./questions";
+import {chooseType, configFilePath, fillConnectionsPath} from "./questions";
 import {renderMessage} from "./utils";
+import {writeFileSync} from "fs";
+import {addAliases, createdConfigFile} from "./messages";
+import {homedir} from "os";
+
+const createConfig = async (inquirer: any, type: string, path: string | undefined) => {
+	if (type !== 'configure') return path
+	if (!path) {
+		await inquirer
+			.prompt([configFilePath(`${homedir()}/connections.json`)])
+			.then(({configFilePath}) => path = configFilePath)
+			.catch(({message}) => renderMessage(message, 'error', true))
+	}
+
+	writeFileSync(path, JSON.stringify({}, null, 2))
+	renderMessage(createdConfigFile(path), 'success')
+	renderMessage(addAliases(path), 'info', true)
+}
 
 const prepareScript = async (inquirer: any) => {
-	const questions = []
 	let type = process.argv.slice(2)[0] ?? undefined
-	let path = process.argv.slice(2)[1] ?? undefined
-
-	if (!type) questions.push(chooseType)
-	if (!path) questions.push(fillConnectionsPath)
-
-	if (questions.length !== 0) {
+	if (!type) {
 		await inquirer
-			.prompt(questions)
-			.then(async (answers) => {
+			.prompt([chooseType])
+			.then((answers) => {
 				type = answers.type
+			})
+			.catch(({message}) => renderMessage(message, 'error', true))
+	}
+
+	let path = await createConfig(inquirer, type, process.argv.slice(2)[1] ?? undefined)
+	if (!path) {
+		await inquirer
+			.prompt([fillConnectionsPath])
+			.then((answers) => {
 				path = answers.path
 			})
 			.catch(({message}) => renderMessage(message, 'error', true))
