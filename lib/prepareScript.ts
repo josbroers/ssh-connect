@@ -1,8 +1,8 @@
 import {resolve} from "path";
 import {chooseType, configFilePath, fillConnectionsPath} from "./questions";
-import {renderMessage} from "./utils";
+import {aliases, renderMessage} from "./utils";
 import {writeFileSync} from "fs";
-import {addAliases, createdConfigFile} from "./messages";
+import {addAliases, createdConfigFile, theAlias} from "./messages";
 import {homedir} from "os";
 
 const createConfig = async (inquirer: any, type: string, path: string | undefined) => {
@@ -16,7 +16,13 @@ const createConfig = async (inquirer: any, type: string, path: string | undefine
 
 	writeFileSync(path, JSON.stringify({}, null, 2))
 	renderMessage(createdConfigFile(path), 'success')
-	renderMessage(addAliases(path), 'info', true)
+	renderMessage(addAliases, 'info')
+
+	Object.entries(aliases).forEach(([key, value]) => {
+		renderMessage(theAlias(path, value, key))
+	})
+
+	process.exit(1)
 }
 
 const prepareScript = async (inquirer: any) => {

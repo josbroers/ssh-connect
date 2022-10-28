@@ -9,22 +9,32 @@ export const availableTypes = [
 	'configure',
 	'list',
 	'edit'
-]
+].sort()
 
-export const renderMessage = (message: string, type: 'error' | 'info' | 'warning' | 'success' = 'info', exit = false) => {
+export const aliases = {
+	'con': 'connect',
+	'add': 'add',
+	'rm': 'remove',
+	'ls': 'list',
+	'edit': 'edit',
+}
+
+export const renderMessage = (message: string, type?: 'error' | 'info' | 'warning' | 'success', exit?: boolean, suffix?: string) => {
 	switch (type) {
 		case "success":
-			console.log(`%s: ${message}`, chalk.green.bold(type.toUpperCase()))
+			console.log(`%s: ${message}`, chalk.green.bold(suffix ?? type.toUpperCase()))
 			break
 		case "error":
-			console.error(`%s: ${message}`, chalk.red.bold(type.toUpperCase()))
+			console.error(`%s: ${message}`, chalk.red.bold(suffix ?? type.toUpperCase()))
 			break
 		case "warning":
-			console.warn(`%s: ${message}`, chalk.yellow.bold(type.toUpperCase()))
+			console.warn(`%s: ${message}`, chalk.yellow.bold(suffix ?? type.toUpperCase()))
 			break
 		case "info":
+			console.log(`%s: ${message}`, chalk.cyan.bold(suffix ?? type.toUpperCase()))
+			break
 		default:
-			console.log(`%s: ${message}`, chalk.cyan.bold(type.toUpperCase()))
+			console.log(message)
 	}
 
 	if (exit) {
