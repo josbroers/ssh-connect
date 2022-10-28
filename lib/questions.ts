@@ -5,7 +5,7 @@ export const chooseServer = (servers: string[]) => {
 	return {
 		type: 'search-list',
 		name: "server",
-		message: "Choose a server to remove:",
+		message: "Choose a server:",
 		choices: servers,
 		loop: false,
 		pageSize: 20
@@ -27,39 +27,39 @@ export const fillConnectionsPath = {
 	default: `${homedir()}/connections.json`
 }
 
-export const fillServerName = (serverName: string = '') => {
+export const fillServerName = (serverName?: string) => {
 	return {
 		type: 'input',
 		name: "server",
 		message: "What is the name of the server?",
-		default: serverName,
+		default: serverName ?? null,
 	}
 }
 
-export const fillIp = (serverName: string = '') => {
+export const fillIp = (serverName?: string) => {
 	return {
 		type: 'input',
 		name: "ip",
 		message: "What is the IP address?",
-		default: serverName,
+		default: serverName ?? null,
 	}
 }
 
-export const fillOptionalUser = (serverName: string = '') => {
+export const fillOptionalUser = (serverName?: string) => {
 	return {
 		type: 'string',
 		name: "user",
 		message: "Optional: Who is the user?",
-		default: serverName,
+		default: serverName ?? null,
 	}
 }
 
-export const fillOptionalPort = (serverName: number | string = '') => {
+export const fillOptionalPort = (serverName?: number) => {
 	return {
 		type: 'string',
 		name: "port",
 		message: "Optional: What is the port?",
-		default: serverName,
+		default: serverName ?? null,
 	}
 }
 

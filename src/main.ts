@@ -19,7 +19,7 @@ const main = async () => {
 	const options = Object.keys(connections)
 
 	if (options.length === 0) {
-		renderMessage(configureServer)
+		renderMessage(configureServer, 'info')
 		args.type = 'add';
 	}
 
