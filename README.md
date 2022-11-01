@@ -4,11 +4,14 @@
 
 A package to easily connect and manage your SSH connections.
 
+Note: the arguments are optional
+
 ## Table of contents
 
 - [1. Node.js](#1-nodejs)
 - [2. Configure](#2-configure)
 - [3. Scripts](#3-scripts)
+	- [3.2 Aliases](#32-aliases)
 
 ## 1. Node.js
 
@@ -25,9 +28,60 @@ ssh-connect configure <path_for_file>
 
 ## 3. Scripts
 
-- Use `ssh-connect configure <path_for_file>` to create a connections file
-- Use `ssh-connect connect <path_to_file>` to connect to a listed connection
-- Use `ssh-connect list <path_for_file>` list all the connections
-- Use `ssh-connect add <path_to_file>` to add a new connection
-- Use `ssh-connect remove <path_to_file>` to remove a listed connection
-- Use `ssh-connect edit <path_for_file>` edit one of the connections
+#### To create a connections file, use:
+
+```bash
+ssh-connect configure <path_for_file>
+```
+
+#### To list all the defined connections, use:
+
+```bash
+ssh-connect list <path_for_file>
+```
+
+#### To connect to a listed connection, use:
+
+```bash
+ssh-connect connect <path_to_file> <connection_name>
+```
+
+#### To add a new connection, use:
+
+```bash
+ssh-connect add <path_to_file> <connection_name>
+```
+
+#### To remove a listed connection, use:
+
+```bash
+ssh-connect remove <path_to_file> <connection_name>
+```
+
+#### To edit a listed connection, use:
+
+```bash
+ssh-connect edit <path_to_file> <connection_name>
+```
+
+### 3.2 Aliases
+
+You can use aliases to predefine the type, connection:
+
+```bash
+alias ssh-con="ssh-connect connect $HOME/connections.json"
+alias ssh-add="ssh-connect add $HOME/connections.json"
+alias ssh-rm="ssh-connect remove $HOME/connections.json"
+alias ssh-ls="ssh-connect list $HOME/connections.json"
+alias ssh-edit="ssh-connect edit $HOME/connections.json"
+```
+
+You can take it even further by making aliases for specific connection names:
+
+```bash
+alias google="ssh-connect connect $HOME/connections.json google"
+alias ssh-google="ssh-connect connect $HOME/connections.json google"
+
+alias cloudflare="ssh-connect connect $HOME/connections.json cloudflare"
+alias ssh-cloudflare="ssh-connect connect $HOME/connections.json cloudflare"
+```
