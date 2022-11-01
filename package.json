@@ -1,6 +1,6 @@
 {
 	"name": "@josbroers/ssh-connect",
-	"version": "1.0.1-canary.0",
+	"version": "1.0.1-canary.1",
 	"private": true,
 	"license": "MIT",
 	"type": "module",
