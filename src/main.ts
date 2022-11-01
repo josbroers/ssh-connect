@@ -6,7 +6,7 @@ import searchList from "inquirer-search-list"
 import connect from "./connect";
 import add from "./add";
 import remove from "./remove";
-import {configureServer, passType} from "../lib/messages";
+import {configureConnection, passType} from "../lib/messages";
 import {importFile, renderMessage} from "../lib/utils";
 import list from "./list";
 import edit from "./edit";
@@ -19,7 +19,7 @@ const main = async () => {
 	const options = Object.keys(connections)
 
 	if (options.length === 0) {
-		renderMessage(configureServer, 'info')
+		renderMessage(configureConnection, 'info')
 		args.type = 'add';
 	}
 
@@ -34,19 +34,22 @@ main()
 	.then(({args, connections, options}) => {
 		switch (args.type) {
 			case 'connect':
-				connect(inquirer, connections, options)
+				connect(inquirer, connections, options, args.connectionName)
+					.catch(({message}) => renderMessage(message, 'error', true))
 				break;
 			case 'add':
-				add(inquirer, connections, options, args.path)
+				add(inquirer, connections, options, args.path, args.connectionName)
 				break;
 			case 'remove':
-				remove(inquirer, connections, options, args.path)
+				remove(inquirer, connections, options, args.path, args.connectionName)
+					.catch(({message}) => renderMessage(message, 'error', true))
 				break;
 			case 'list':
 				list(connections)
 				break;
 			case 'edit':
-				edit(inquirer, connections, options, args.path)
+				edit(inquirer, connections, options, args.path, args.connectionName)
+					.catch(({message}) => renderMessage(message, 'error', true))
 				break;
 			default:
 				throw new Error(passType)

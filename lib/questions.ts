@@ -1,12 +1,12 @@
 import {availableTypes} from "./utils";
 import {homedir} from "os";
 
-export const chooseServer = (servers: string[]) => {
+export const chooseConnection = (connections: string[]) => {
 	return {
 		type: 'search-list',
-		name: "server",
-		message: "Choose a server:",
-		choices: servers,
+		name: "connection",
+		message: "Choose a connection:",
+		choices: connections,
 		loop: false,
 		pageSize: 20
 	}
@@ -27,46 +27,46 @@ export const fillConnectionsPath = {
 	default: `${homedir()}/connections.json`
 }
 
-export const fillServerName = (serverName?: string) => {
+export const fillConnectionName = (connectionName?: string) => {
 	return {
 		type: 'input',
-		name: "server",
-		message: "What is the name of the server?",
-		default: serverName ?? null,
+		name: "connection",
+		message: "What is the name of the connection?",
+		default: connectionName ?? null,
 	}
 }
 
-export const fillIp = (serverName?: string) => {
+export const fillIp = (connectionName?: string) => {
 	return {
 		type: 'input',
 		name: "ip",
 		message: "What is the IP address?",
-		default: serverName ?? null,
+		default: connectionName ?? null,
 	}
 }
 
-export const fillOptionalUser = (serverName?: string) => {
+export const fillOptionalUser = (connectionName?: string) => {
 	return {
 		type: 'string',
 		name: "user",
 		message: "Optional: Who is the user?",
-		default: serverName ?? null,
+		default: connectionName ?? null,
 	}
 }
 
-export const fillOptionalPort = (serverName?: number) => {
+export const fillOptionalPort = (connectionName?: number) => {
 	return {
 		type: 'string',
 		name: "port",
 		message: "Optional: What is the port?",
-		default: serverName ?? null,
+		default: connectionName ?? null,
 	}
 }
 
 export const connectAfterCreation = {
 	type: 'confirm',
 	name: "connect",
-	message: "Connect to the server after creation?",
+	message: "Connect to the connection after creation?",
 	default: true,
 }
 

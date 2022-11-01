@@ -1,32 +1,33 @@
-import {connectAfterCreation, fillIp, fillOptionalPort, fillOptionalUser, fillServerName} from "../lib/questions";
+import {connectAfterCreation, fillIp, fillOptionalPort, fillOptionalUser, fillConnectionName} from "../lib/questions";
 import {writeFileSync} from "fs";
 import {execSync} from "child_process";
-import {passIp, passServerName, serverAlreadyExists} from "../lib/messages";
+import {passIp, passConnectionName, connectionAlreadyExists} from "../lib/messages";
 import {renderMessage} from "../lib/utils";
 
-const add = (inquirer: any, connections: object, options: string[], path: string) => {
+const add = (inquirer: any, connections: object, options: string[], path: string, connectionName: string | undefined) => {
+	console.log(connectionName)
 	inquirer
-		.prompt([fillServerName(), fillIp(), fillOptionalUser(), fillOptionalPort(), connectAfterCreation])
+		.prompt([fillConnectionName(connectionName), fillIp(), fillOptionalUser(), fillOptionalPort(), connectAfterCreation])
 		.then((answers) => {
-			if (!answers.server) throw new Error(passServerName)
+			if (!answers.connection) throw new Error(passConnectionName)
 			if (!answers.ip) throw new Error(passIp)
-			if (options.includes(answers.server)) throw new Error(serverAlreadyExists(answers.server))
+			if (options.includes(answers.connection)) throw new Error(connectionAlreadyExists(answers.connection))
 
-			const newServer = {
-				[answers.server]: {
+			const newConnection = {
+				[answers.connection]: {
 					"ip": answers.ip,
 					"user": answers.user,
 					"port": answers.port
 				}
 			}
 
-			const servers = {
+			const newConnections = {
 				...connections,
-				...newServer
+				...newConnection
 			}
 
-			writeFileSync(path, JSON.stringify(servers, null, 2));
-			renderMessage(`Added the following connection:\n\n${JSON.stringify(newServer, null, 2)}`, 'success')
+			writeFileSync(path, JSON.stringify(newConnections, null, 2));
+			renderMessage(`Added the following connection:\n\n${JSON.stringify(newConnection, null, 2)}`, 'success')
 
 			if (answers.connect) {
 				const ip = answers.ip

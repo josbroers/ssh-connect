@@ -1,18 +1,18 @@
 import {availableTypes} from "./utils";
 
-export const configureServer = 'No servers defined. Please configure a server...'
+export const configureConnection = 'No connections defined. Please configure a connection...'
 
 export const passType = `Pass one of the following types: ${availableTypes.toString()}`
 
 export const passIp = 'Fill-in an IP address'
 
-export const passServerName = 'Fill-in a name for the server'
+export const passConnectionName = 'Fill-in a name for the connection'
 
-export const misconfiguredServer = (server: string) => `The server ${server} isn't configured properly`
+export const misconfiguredConnection = (connection: string) => `The connection ${connection} isn't configured properly`
 
-export const missingServer = (server: string) => `The server ${server} doesn't exists`
+export const missingConnection = (connection: string) => `The connection ${connection} doesn't exists`
 
-export const serverAlreadyExists = (server: string) => `A server with the name ${server} already exists`
+export const connectionAlreadyExists = (connection: string) => `A connection with the name ${connection} already exists`
 
 export const createdConfigFile = (path: string) => `Successfully created a configuration file here: ${path}`
 
