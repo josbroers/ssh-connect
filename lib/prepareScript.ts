@@ -7,6 +7,7 @@ import {homedir} from "os";
 
 const createConfig = async (inquirer: any, type: string, path: string | undefined) => {
 	if (type !== 'configure') return path
+
 	if (!path) {
 		await inquirer
 			.prompt([configFilePath(`${homedir()}/connections.json`)])
@@ -48,7 +49,8 @@ const prepareScript = async (inquirer: any) => {
 
 	return {
 		type,
-		path: resolve(process.cwd(), path)
+		path: resolve(process.cwd(), path),
+		connectionName: process.argv.slice(2)[2] ?? undefined
 	}
 }
 
