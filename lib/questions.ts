@@ -1,17 +1,6 @@
 import {availableTypes} from "./utils";
 import {homedir} from "os";
 
-export const chooseConnection = (connections: string[]) => {
-	return {
-		type: 'search-list',
-		name: "connection",
-		message: "Choose a connection:",
-		choices: connections,
-		loop: false,
-		pageSize: 20
-	}
-}
-
 export const chooseType = {
 	type: 'list',
 	name: 'type',
@@ -27,7 +16,25 @@ export const fillConnectionsPath = {
 	default: `${homedir()}/connections.json`
 }
 
-export const fillConnectionName = (connectionName?: string) => {
+export const connectAfterCreation = {
+	type: 'confirm',
+	name: "connect",
+	message: "Connect to the connection after creation?",
+	default: true,
+}
+
+export function chooseConnection(connections: string[]) {
+	return {
+		type: 'search-list',
+		name: "connection",
+		message: "Choose a connection:",
+		choices: connections,
+		loop: false,
+		pageSize: 20
+	}
+}
+
+export function fillConnectionName(connectionName?: string) {
 	return {
 		type: 'input',
 		name: "connection",
@@ -36,7 +43,7 @@ export const fillConnectionName = (connectionName?: string) => {
 	}
 }
 
-export const fillIp = (connectionName?: string) => {
+export function fillIp(connectionName?: string) {
 	return {
 		type: 'input',
 		name: "ip",
@@ -45,7 +52,7 @@ export const fillIp = (connectionName?: string) => {
 	}
 }
 
-export const fillOptionalUser = (connectionName?: string) => {
+export function fillOptionalUser(connectionName?: string) {
 	return {
 		type: 'string',
 		name: "user",
@@ -54,7 +61,7 @@ export const fillOptionalUser = (connectionName?: string) => {
 	}
 }
 
-export const fillOptionalPort = (connectionName?: number) => {
+export function fillOptionalPort(connectionName?: number) {
 	return {
 		type: 'string',
 		name: "port",
@@ -63,14 +70,7 @@ export const fillOptionalPort = (connectionName?: number) => {
 	}
 }
 
-export const connectAfterCreation = {
-	type: 'confirm',
-	name: "connect",
-	message: "Connect to the connection after creation?",
-	default: true,
-}
-
-export const configFilePath = (defaultPath: string) => {
+export function configFilePath(defaultPath: string) {
 	return {
 		type: 'input',
 		name: "configFilePath",

@@ -3,7 +3,7 @@ import {chooseConnection} from "../lib/questions";
 import {misconfiguredConnection} from "../lib/messages";
 import {renderMessage} from "../lib/utils";
 
-const connect = async (inquirer: any, connections: object, options: string[], connectionName: string | undefined) => {
+export default async function connect(inquirer: any, connections: object, options: string[], connectionName: string | undefined) {
 	if (!connectionName) {
 		await inquirer
 			.prompt([chooseConnection(options)])
@@ -25,5 +25,3 @@ const connect = async (inquirer: any, connections: object, options: string[], co
 	execSync(`ssh ${user}${ip} ${port}`, {stdio: 'inherit'})
 	process.exit(1)
 }
-
-export default connect

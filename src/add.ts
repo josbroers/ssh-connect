@@ -4,7 +4,7 @@ import {execSync} from "child_process";
 import {passIp, passConnectionName, connectionAlreadyExists} from "../lib/messages";
 import {renderMessage} from "../lib/utils";
 
-const add = (inquirer: any, connections: object, options: string[], path: string, connectionName: string | undefined) => {
+export default function add(inquirer: any, connections: object, options: string[], path: string, connectionName: string | undefined) {
 	console.log(connectionName)
 	inquirer
 		.prompt([fillConnectionName(connectionName), fillIp(), fillOptionalUser(), fillOptionalPort(), connectAfterCreation])
@@ -41,5 +41,3 @@ const add = (inquirer: any, connections: object, options: string[], path: string
 		})
 		.catch(({message}) => renderMessage(message, 'error', true))
 }
-
-export default add

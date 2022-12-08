@@ -2,7 +2,7 @@ import {resolve} from "path";
 import {chooseType, configFilePath, fillConnectionsPath} from "./questions";
 import {aliases, renderMessage} from "./utils";
 import {writeFileSync} from "fs";
-import {addAliases, createdConfigFile, theAlias} from "./messages";
+import {createdConfigFile, theAlias} from "./messages";
 import {homedir} from "os";
 
 const createConfig = async (inquirer: any, type: string, path: string | undefined) => {
@@ -26,7 +26,7 @@ const createConfig = async (inquirer: any, type: string, path: string | undefine
 	process.exit(1)
 }
 
-const prepareScript = async (inquirer: any) => {
+export default async function prepareScript(inquirer: any) {
 	let type = process.argv.slice(2)[0] ?? undefined
 	if (!type) {
 		await inquirer
@@ -53,5 +53,3 @@ const prepareScript = async (inquirer: any) => {
 		connectionName: process.argv.slice(2)[2] ?? undefined
 	}
 }
-
-export default prepareScript

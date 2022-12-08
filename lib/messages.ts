@@ -1,4 +1,5 @@
 import {availableTypes} from "./utils";
+import chalk from "chalk";
 
 export const configureConnection = 'No connections defined. Please configure a connection...'
 
@@ -8,14 +9,30 @@ export const passIp = 'Fill-in an IP address'
 
 export const passConnectionName = 'Fill-in a name for the connection'
 
-export const misconfiguredConnection = (connection: string) => `The connection ${connection} isn't configured properly`
+export function misconfiguredConnection(connection: string) {
+	return `The connection ${connection} isn't configured properly`
+}
 
-export const missingConnection = (connection: string) => `The connection ${connection} doesn't exists`
+export function missingConnection(connection: string) {
+	return `The connection ${connection} doesn't exists`
+}
 
-export const connectionAlreadyExists = (connection: string) => `A connection with the name ${connection} already exists`
+export function connectionAlreadyExists(connection: string) {
+	return `A connection with the name ${connection} already exists`
+}
 
-export const createdConfigFile = (path: string) => `Successfully created a configuration file here: ${path}`
+export function createdConfigFile(path: string) {
+	return `Successfully created a configuration file here: ${path}`
+}
 
-export const addAliases = "Add the following aliases:"
+export function theAlias(path: string, type: string, key: string) {
+	return `alias ssh-${key}="ssh-connect ${type} ${path}"`
+}
 
-export const theAlias = (path: string, type: string, key: string) => `alias ssh-${key}="ssh-connect ${type} ${path}"`
+export function removedConnection(connection: string) {
+	return `Removed the following connection:\n\n${connection}`
+}
+
+export function getIPAddress(ip: string) {
+	return chalk.bold(ip)
+}
