@@ -3,7 +3,7 @@ import {missingConnection} from "../lib/messages";
 import {renderMessage} from "../lib/utils";
 import {writeFileSync} from "fs";
 
-const remove = async (inquirer, connections: object, options: string[], path: string, connectionName: string | undefined) => {
+export default async function remove(inquirer, connections: object, options: string[], path: string, connectionName: string | undefined) {
 	if (!connectionName) {
 		await inquirer
 			.prompt([chooseConnection(options)])
@@ -47,5 +47,3 @@ const remove = async (inquirer, connections: object, options: string[], path: st
 		})
 		.catch(({message}) => renderMessage(message, 'error', true))
 }
-
-export default remove

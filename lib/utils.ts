@@ -1,6 +1,7 @@
 import {readFileSync} from "fs";
 import chalk from "chalk";
 import {resolve} from "path";
+import {homedir} from "os";
 
 export const availableTypes = [
 	'connect',
@@ -8,7 +9,8 @@ export const availableTypes = [
 	'remove',
 	'configure',
 	'list',
-	'edit'
+	'edit',
+	'get',
 ].sort()
 
 export const aliases = {
@@ -17,9 +19,10 @@ export const aliases = {
 	'rm': 'remove',
 	'ls': 'list',
 	'edit': 'edit',
+	'get': 'get',
 }
 
-export const renderMessage = (message: string, type?: 'error' | 'info' | 'warning' | 'success', exit?: boolean, suffix?: string) => {
+export function renderMessage(message: string, type?: 'error' | 'info' | 'warning' | 'success', exit?: boolean, suffix?: string) {
 	switch (type) {
 		case "success":
 			console.log(`%s: ${message}`, chalk.green.bold(suffix ?? type.toUpperCase()))
@@ -42,6 +45,6 @@ export const renderMessage = (message: string, type?: 'error' | 'info' | 'warnin
 	}
 }
 
-export const importFile = async (path: string) => {
+export async function importFile(path: string) {
 	return await JSON.parse(readFileSync(resolve(process.cwd(), path), 'utf8'))
 }

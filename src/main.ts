@@ -10,6 +10,7 @@ import {configureConnection, passType} from "../lib/messages";
 import {importFile, renderMessage} from "../lib/utils";
 import list from "./list";
 import edit from "./edit";
+import get from "./get";
 
 const main = async () => {
 	inquirer.registerPrompt("search-list", searchList)
@@ -42,6 +43,10 @@ main()
 				break;
 			case 'remove':
 				remove(inquirer, connections, options, args.path, args.connectionName)
+					.catch(({message}) => renderMessage(message, 'error', true))
+				break;
+			case 'get':
+				get(inquirer, connections, options, args.path, args.connectionName)
 					.catch(({message}) => renderMessage(message, 'error', true))
 				break;
 			case 'list':
