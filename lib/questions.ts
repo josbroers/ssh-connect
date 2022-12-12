@@ -43,30 +43,39 @@ export function fillConnectionName(connectionName?: string) {
 	}
 }
 
-export function fillIp(connectionName?: string) {
+export function fillIp(Ip?: string) {
 	return {
 		type: 'input',
 		name: "ip",
 		message: "What is the IP address?",
-		default: connectionName ?? null,
+		default: Ip ?? null,
 	}
 }
 
-export function fillOptionalUser(connectionName?: string) {
+export function fillOptionalUser(user?: string) {
 	return {
 		type: 'string',
 		name: "user",
 		message: "Optional: Who is the user?",
-		default: connectionName ?? null,
+		default: user ?? null,
 	}
 }
 
-export function fillOptionalPort(connectionName?: number) {
+export function fillOptionalPort(port?: number) {
 	return {
 		type: 'string',
 		name: "port",
 		message: "Optional: What is the port?",
-		default: connectionName ?? null,
+		default: port ?? null,
+	}
+}
+
+export function fillOptionalAlias(alias?: number) {
+	return {
+		type: 'string',
+		name: "alias",
+		message: "Optional: What is the alias?",
+		default: alias ?? null,
 	}
 }
 

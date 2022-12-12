@@ -2,7 +2,7 @@ import {resolve} from "path";
 import {chooseType, configFilePath, fillConnectionsPath} from "./questions";
 import {aliases, renderMessage} from "./utils";
 import {writeFileSync} from "fs";
-import {createdConfigFile, theAlias} from "./messages";
+import {addAliases, createdConfigFile, theAlias} from "./messages";
 import {homedir} from "os";
 
 const createConfig = async (inquirer: any, type: string, path: string | undefined) => {

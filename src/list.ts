@@ -1,3 +1,5 @@
+import {renderMessage} from "../lib/utils";
+
 export default function list(connections: object) {
-	console.log(connections)
+	renderMessage(connections, null, true)
 }

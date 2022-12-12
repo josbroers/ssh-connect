@@ -1,4 +1,11 @@
-import {connectAfterCreation, fillIp, fillOptionalPort, fillOptionalUser, fillConnectionName} from "../lib/questions";
+import {
+	connectAfterCreation,
+	fillIp,
+	fillOptionalPort,
+	fillOptionalUser,
+	fillConnectionName,
+	fillOptionalAlias
+} from "../lib/questions";
 import {writeFileSync} from "fs";
 import {execSync} from "child_process";
 import {passIp, passConnectionName, connectionAlreadyExists} from "../lib/messages";
@@ -7,7 +14,7 @@ import {renderMessage} from "../lib/utils";
 export default function add(inquirer: any, connections: object, options: string[], path: string, connectionName: string | undefined) {
 	console.log(connectionName)
 	inquirer
-		.prompt([fillConnectionName(connectionName), fillIp(), fillOptionalUser(), fillOptionalPort(), connectAfterCreation])
+		.prompt([fillConnectionName(connectionName), fillIp(), fillOptionalUser(), fillOptionalPort(), fillOptionalAlias(), connectAfterCreation])
 		.then((answers) => {
 			if (!answers.connection) throw new Error(passConnectionName)
 			if (!answers.ip) throw new Error(passIp)
@@ -17,7 +24,8 @@ export default function add(inquirer: any, connections: object, options: string[
 				[answers.connection]: {
 					"ip": answers.ip,
 					"user": answers.user,
-					"port": answers.port
+					"port": answers.port,
+					"alias": answers.alias
 				}
 			}
 

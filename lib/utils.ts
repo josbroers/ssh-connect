@@ -11,6 +11,7 @@ export const availableTypes = [
 	'list',
 	'edit',
 	'get',
+	'aliases'
 ].sort()
 
 export const aliases = {
@@ -20,6 +21,7 @@ export const aliases = {
 	'ls': 'list',
 	'edit': 'edit',
 	'get': 'get',
+	'alias': 'aliases'
 }
 
 export function renderMessage(message: string, type?: 'error' | 'info' | 'warning' | 'success', exit?: boolean, suffix?: string) {

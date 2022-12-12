@@ -1,4 +1,11 @@
-import {chooseConnection, fillIp, fillOptionalPort, fillOptionalUser, fillConnectionName} from "../lib/questions";
+import {
+	chooseConnection,
+	fillIp,
+	fillOptionalPort,
+	fillOptionalUser,
+	fillConnectionName,
+	fillOptionalAlias
+} from "../lib/questions";
 import {missingConnection} from "../lib/messages";
 import {renderMessage} from "../lib/utils";
 import {writeFileSync} from "fs";
@@ -24,7 +31,8 @@ export default async function remove(inquirer, connections: object, options: str
 			fillConnectionName(connection),
 			fillIp(connections[connectionName].ip),
 			fillOptionalUser(connections[connectionName].user),
-			fillOptionalPort(connections[connectionName].port)
+			fillOptionalPort(connections[connectionName].port),
+			fillOptionalAlias(connections[connectionName].alias)
 		])
 		.then((answers) => {
 			delete connections[connection];
@@ -33,7 +41,8 @@ export default async function remove(inquirer, connections: object, options: str
 				[connectionName]: {
 					"ip": answers.ip,
 					"user": answers.user,
-					"port": answers.port
+					"port": answers.port,
+					"alias": answers.alias
 				}
 			}
 
