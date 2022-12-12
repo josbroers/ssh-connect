@@ -9,6 +9,8 @@ export const passIp = 'Fill-in an IP address'
 
 export const passConnectionName = 'Fill-in a name for the connection'
 
+export const addAliases = "Add the following aliases:"
+
 export function misconfiguredConnection(connection: string) {
 	return `The connection ${connection} isn't configured properly`
 }
@@ -25,8 +27,8 @@ export function createdConfigFile(path: string) {
 	return `Successfully created a configuration file here: ${path}`
 }
 
-export function theAlias(path: string, type: string, key: string) {
-	return `alias ssh-${key}="ssh-connect ${type} ${path}"`
+export function theAlias(path: string, type: string, key: string, connection?: string) {
+	return `alias ssh-${key}="ssh-connect ${type} ${path}${connection ? ` ${connection}` : ''}"`
 }
 
 export function removedConnection(connection: string) {

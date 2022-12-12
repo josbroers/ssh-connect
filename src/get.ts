@@ -1,6 +1,5 @@
-import {writeFileSync} from "fs";
 import {chooseConnection} from "../lib/questions";
-import {getIPAddress, missingConnection, removedConnection} from "../lib/messages";
+import {getIPAddress, missingConnection} from "../lib/messages";
 import {renderMessage} from "../lib/utils";
 
 export default async function get(inquirer, connections: object, options: string[], path: string, connectionName: string | undefined) {
