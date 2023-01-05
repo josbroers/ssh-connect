@@ -44,15 +44,16 @@
 		"build": "parcel build",
 		"start": "node dist/main.js",
 		"lerna": "npx lerna version --force-publish",
-		"make_public": "json -I -f package.json -e 'this.private=false'"
+		"make_public": "json -I -f package.json -e 'this.private=false'",
+		"update": "npx npm-check -u"
 	},
 	"devDependencies": {
-		"@parcel/transformer-typescript-types": "^2.7.0",
-		"@types/inquirer": "^9.0.2",
-		"@types/node": "^18.11.4",
+		"@parcel/transformer-typescript-types": "^2.8.2",
+		"@types/inquirer": "^9.0.3",
+		"@types/node": "^18.11.18",
 		"json": "^11.0.0",
-		"parcel": "^2.7.0",
-		"typescript": "^4.8.4"
+		"parcel": "^2.8.2",
+		"typescript": "^4.9.4"
 	},
 	"peerDependencies": {
 		"chalk": "^5.1.2",
